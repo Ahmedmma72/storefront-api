@@ -1,5 +1,5 @@
 export type cart = {
-  cart_owner?: number;
+  user_id?: number;
   product_id?: number;
   quantity?: number;
 };
