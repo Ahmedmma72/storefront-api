@@ -1,10 +1,9 @@
-import client from "../config/db/db";
-import { Book } from "./types/book.types";
+import client from '../../config/db/db';
+import { user } from './types/user';
 
-export default class BookStore {
+export default class User {
   static async index(): Promise<Book[]> {
     try {
-
       const conn = await client.connect();
       const sql = 'SELECT * FROM books';
 
