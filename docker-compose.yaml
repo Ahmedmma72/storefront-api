@@ -1,0 +1,23 @@
+services:
+  db_dev:
+    image: postgres
+    ports:
+      - "${SF_DEV_PORT}:5432"
+    volumes:
+      - db_dev_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${SF_POSTGRES_PASSWORD}
+      POSTGRES_USER: ${SF_POSTGRES_USER}
+      POSTGRES_DB: ${SF_DEV_DB}
+  db_test:
+    image: postgres
+    ports:
+      - "${SF_TEST_PORT}:5432"
+    environment:
+      POSTGRES_PASSWORD: ${SF_POSTGRES_PASSWORD}
+      POSTGRES_USER: ${SF_POSTGRES_USER}
+      POSTGRES_DB: ${SF_TEST_DB}
+volumes:
+  db_dev_data:
+
+      

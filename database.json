@@ -1,0 +1,19 @@
+{
+    "defaultEnv": {"ENV" : "ENV"},
+    "dev":{
+        "driver": "pg",
+        "host": {"ENV" : "SF_DB_HOST"},
+        "port": {"ENV" : "SF_DEV_PORT"},
+        "database": {"ENV" : "SF_DEV_DB"},
+        "user": {"ENV" : "SF_POSTGRES_USER"},
+        "password": {"ENV" : "SF_POSTGRES_PASSWORD"}
+    },
+    "test":{
+        "driver": "pg",
+        "host": {"ENV" : "SF_DB_HOST"},
+        "port": {"ENV" : "SF_TEST_PORT"},
+        "database": {"ENV" : "SF_TEST_DB"},
+        "user": {"ENV" : "SF_POSTGRES_USER"},
+        "password": {"ENV" : "SF_POSTGRES_PASSWORD"}
+    }
+}
