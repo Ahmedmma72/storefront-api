@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
-import Cart from '../models/cart.module';
+import Cart from '../models/cart.model';
 
 import addToUserCart from '../services/cart/addToUserCart';
 import cartCheckout from '../services/cart/cartCheckout';
 import getUserCartProducts from '../services/cart/getUserCartProducts';
+import addOrderProducts from '../services/order/addOrderProduct';
+import Order from '../models/order.model';
 
 
 import updateUserCartProduct from '../services/cart/updateUserCartProduct';
@@ -64,6 +66,16 @@ export const checkoutCart = async (req: Request, res: Response) => {
     if (!user_id) {
       throw new Error('Please provide a user_id');
     }
+    const products = await getUserCartProducts(parseInt(user_id));
+    if (products.length === 0) {
+      throw new Error('Cart is empty');
+    }
+    const { id: ID } = await Order.create({
+      user_id: parseInt(user_id),
+      status: 'complete',
+    });
+    await addOrderProducts(ID as number, products);
+
     const cart = await cartCheckout(parseInt(user_id));
     res.status(200).json(cart);
   } catch (err: unknown) {
