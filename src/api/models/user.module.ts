@@ -17,7 +17,7 @@ export default class User {
     }
   }
 
-  static async show(id: string): Promise<user> {
+  static async show(id: number): Promise<user> {
     try {
       const sql = 'SELECT * FROM users WHERE id=($1)';
       const conn = await client.connect();
@@ -34,7 +34,7 @@ export default class User {
   static async create(u: user): Promise<user> {
     try {
       const sql =
-        'INSERT INTO users (email, first_name, last_name, password) VALUES($1, $2, $3, $4) RETURNING id, email, first_name, last_name';
+        `INSERT INTO users (email, first_name, last_name, password) VALUES( ($1), ($2), ($3), ($4) ) RETURNING id,email,first_name,last_name;`;
 
       const conn = await client.connect();
 

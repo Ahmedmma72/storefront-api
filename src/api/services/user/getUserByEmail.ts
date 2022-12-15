@@ -2,7 +2,7 @@ import client from "../../../config/db/db";
 
 const getUserByEmail = async (email: string) => {
     try {
-        const sql = 'SELECT * FROM users WHERE email=($1) returning *';
+        const sql = 'SELECT * FROM users WHERE email=($1)';
         const conn = await client.connect();
         const result = await conn.query(sql, [email]);
 

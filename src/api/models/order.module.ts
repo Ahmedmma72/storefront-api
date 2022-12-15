@@ -17,7 +17,7 @@ export default class Order {
     }
   }
 
-  static async show(id: string): Promise<order> {
+  static async show(id: number): Promise<order> {
     try {
       const sql = 'SELECT * FROM orders WHERE id=($1)';
       const conn = await client.connect();

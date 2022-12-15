@@ -11,8 +11,9 @@ const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
     const token = authorizationHeader.split(' ')[1];
     jwt.verify(token, process.env.JWT_SECRET as string);
     next();
-  } catch (error) {
-    res.status(401);
+  } catch (error : unknown) {
+    const typedError = error as Error;
+    res.status(401).json({ error: typedError?.message });
   }
 };
 
