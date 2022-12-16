@@ -53,7 +53,7 @@ export default class Cart {
   }
   static async delete(c: cart): Promise<cart> {
     try {
-      const sql = 'DELETE FROM cart WHERE user_id=($1) AND product_id=($2)';
+      const sql = 'DELETE FROM cart WHERE user_id=($1) AND product_id=($2) RETURNING *';
       const conn = await client.connect();
       const result = await conn.query(sql, [c.user_id, c.product_id]);
 

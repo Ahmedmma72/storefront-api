@@ -2,7 +2,7 @@ import client from "../../../config/db/db";
 
 const getProductByName = async (name: string) => {
     try {
-        const sql = 'SELECT * FROM products WHERE name=($1) returning *';
+        const sql = 'SELECT * FROM products WHERE name=($1)';
         const conn = await client.connect();
         const result = await conn .query(sql, [name]);
 

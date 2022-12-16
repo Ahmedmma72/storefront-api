@@ -3,7 +3,7 @@ import client from '../../../config/db/db';
 const cartCheckout = async (user_id: number) => {
   try {
     const conn = await client.connect();
-    const sql = 'DELETE FROM cart WHERE user_id=($1)';
+    const sql = 'DELETE FROM cart WHERE user_id=($1) RETURNING *';
     const result = await conn.query(sql, [user_id]);
     conn.release();
     return result.rows[0];

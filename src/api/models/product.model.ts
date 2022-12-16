@@ -34,7 +34,7 @@ export default class Product {
   static async create(p: product): Promise<product> {
     try {
       const sql =
-        'INSERT INTO products ( name, price) values (($1), ($2))RETURNING id,name, price';
+        'INSERT INTO products (name, price) values ( ($1), ($2) ) RETURNING id,name, price';
 
       const conn = await client.connect();
 

@@ -17,7 +17,7 @@ export const getCartProducts = async (req: Request, res: Response) => {
       throw new Error('Please provide a user_id');
     }
     const cart = await getUserCartProducts(parseInt(user_id));
-    res.status(200).json(cart);
+    res.status(200).json({message:'cart', cart});
   } catch (err: unknown) {
     const typedError = err as Error;
     res.status(400).json(typedError?.message);
@@ -35,7 +35,7 @@ export const addProductToCart = async (req: Request, res: Response) => {
       product_id: parseInt(product_id),
       quantity: parseInt(quantity),
     });
-    res.status(200).json(cart);
+    res.status(201).json({message: 'Product added to cart', cart});
   } catch (err: unknown) {
     const typedError = err as Error;
     res.status(400).json(typedError?.message);
@@ -53,7 +53,7 @@ export const updateCartProduct = async (req: Request, res: Response) => {
       product_id: parseInt(product_id),
       quantity: parseInt(quantity),
     });
-    res.status(200).json(cart);
+    res.status(200).json({message: 'Cart updated', cart});
   } catch (err: unknown) {
     const typedError = err as Error;
     res.status(400).json(typedError?.message);
@@ -77,7 +77,7 @@ export const checkoutCart = async (req: Request, res: Response) => {
     await addOrderProducts(ID as number, products);
 
     const cart = await cartCheckout(parseInt(user_id));
-    res.status(200).json(cart);
+    res.status(200).json({message: 'Cart checked out', cart});
   } catch (err: unknown) {
     const typedError = err as Error;
     res.status(400).json(typedError?.message);
@@ -94,7 +94,7 @@ export const deleteProductFromCart = async (req: Request, res: Response) => {
       user_id: parseInt(user_id),
       product_id: parseInt(product_id),
     });
-    res.status(200).json(cart);
+    res.status(200).json({message: 'Product deleted from cart', cart});
   } catch (err: unknown) {
     const typedError = err as Error;
     res.status(400).json(typedError?.message);

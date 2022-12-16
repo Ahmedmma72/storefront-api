@@ -15,9 +15,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
 export const getProduct = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    if (!id) {
-      throw new Error('Product does not exist');
-    }
     const product = await Product.show(parseInt(id));
     if (!product) {
       throw new Error('Product does not exist');
@@ -25,7 +22,7 @@ export const getProduct = async (req: Request, res: Response) => {
     res.status(200).json({ message: 'Product', product });
   } catch (err: unknown) {
     const typedError = err as Error;
-    res.status(400).json(typedError?.message);
+    res.status(400).json({ error: typedError?.message});
   }
 };
 
@@ -33,7 +30,7 @@ export const addProduct = async (req: Request, res: Response) => {
   try {
     const { name, price } = req.body;
     if (!name || !price) {
-      throw new Error('Product does not exist');
+      throw new Error('Missing name or price');
     }
     const productExists = await getProductByName(name);
     if (productExists) {

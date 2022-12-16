@@ -15,18 +15,15 @@ const signUp = async (req: Request, res: Response) => {
     if (existingUser) {
       throw new Error('User already exists');
     }
-    console.log(email, first_name, last_name, password);
     const hashedPassword = hashPassword(password);
-    console.log('hashedPassword: ', hashedPassword);
     const user = await User.create({
       email: email,
       first_name: first_name,
       last_name: last_name,
       password: hashedPassword,
     });
-    console.log('user: ', user);
     const token = await getToken(user.id as number);
-    res.status(200).json({ message: 'User created', user: user, token });
+    res.status(201).json({ message: 'User created', user: user, token });
   } catch (err: unknown) {
     const typedError = err as Error;
     res.status(400).json({ error: typedError?.message });
