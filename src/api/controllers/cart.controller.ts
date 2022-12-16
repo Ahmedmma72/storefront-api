@@ -72,7 +72,7 @@ export const checkoutCart = async (req: Request, res: Response) => {
     }
     const { id: ID } = await Order.create({
       user_id: parseInt(user_id),
-      status: 'complete',
+      status: 'completed',
     });
     await addOrderProducts(ID as number, products);
 

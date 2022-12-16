@@ -2,26 +2,21 @@ import client from '../../config/db/db';
 import { user } from '../../api/models/types/user';
 import User from '../../api/models/user.model';
 
-beforeAll(async () => {
-  try{
+describe('User Model', () => {
+  beforeAll(async () => {
     const sql = `DELETE FROM users; 
       ALTER SEQUENCE users_id_seq RESTART WITH 1;`;
-  const conn = await client.connect();
-  await conn.query(sql);
-  conn.release();
-  }catch(err){
-    console.log(err);
-  }
-});
-afterAll(async () => {
-  const sql = `DELETE FROM users; 
+    const conn = await client.connect();
+    await conn.query(sql);
+    conn.release();
+  });
+  afterAll(async () => {
+    const sql = `DELETE FROM users;
       ALTER SEQUENCE users_id_seq RESTART WITH 1;`;
-  const conn = await client.connect();
-  await conn.query(sql);
-  conn.release();
-});
-
-describe('User Model', () => {
+    const conn = await client.connect();
+    await conn.query(sql);
+    conn.release();
+  });
   const testUser1 = {
     email: 'ahmed@ahmed.com',
     first_name: 'ahmed',
@@ -37,25 +32,20 @@ describe('User Model', () => {
   let user1: user;
   let user2: user;
   it('creates two users', async () => {
-    try {
-      user1 = await User.create(testUser1);
-      user2 = await User.create(testUser2);
-      expect(user1).toEqual({
-        id: 1,
-        email: testUser1.email,
-        first_name: testUser1.first_name,
-        last_name: testUser1.last_name,
-      });
-      expect(user2).toEqual({
-        id: 2,
-        email: testUser2.email,
-        first_name: testUser2.first_name,
-        last_name: testUser2.last_name,
-      });
-    } catch (err: unknown) {
-      const typedErr = err as Error;
-      console.log(typedErr.message);
-    }
+    user1 = await User.create(testUser1);
+    user2 = await User.create(testUser2);
+    expect(user1).toEqual({
+      id: 1,
+      email: testUser1.email,
+      first_name: testUser1.first_name,
+      last_name: testUser1.last_name,
+    });
+    expect(user2).toEqual({
+      id: 2,
+      email: testUser2.email,
+      first_name: testUser2.first_name,
+      last_name: testUser2.last_name,
+    });
   });
 
   it('gets all users', async () => {

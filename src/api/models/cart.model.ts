@@ -17,9 +17,9 @@ export default class Cart {
     }
   }
 
-  static async show(id: string): Promise<cart> {
+  static async show(id: number): Promise<cart> {
     try {
-      const sql = 'SELECT * FROM cart WHERE id=($1)';
+      const sql = 'SELECT * FROM cart WHERE user_id=($1)';
       const conn = await client.connect();
       const result = await conn.query(sql, [id]);
 
